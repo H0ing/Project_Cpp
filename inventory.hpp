@@ -39,6 +39,8 @@ public:
     bool isEmpty() const;
     void clearScreen() const;
     void pressAnyKey() const;
+    void print_space(int size) const;
+    void print_underScore(int size) const;
     
     // For sales class access
     Component* getHead() const { return head; }

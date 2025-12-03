@@ -5,6 +5,7 @@
 #include <limits>
 #include <algorithm>
 #include <cctype>
+#include <iomanip> // Required for std::fixed and std::setprecision
 
 #ifdef _WIN32
 #include <conio.h>
@@ -168,6 +169,17 @@ void Inventory::addComponent() {
     
     std::cout << "Component added successfully!\n";
 }
+void Inventory::print_space(int size) const{
+    for (int i = 0; i < size; i++)
+		std::cout<<" ";
+    
+}
+void Inventory::print_underScore(int size) const{
+   
+    for(int i = 0; i<size; i++)
+        std::cout<<"_";
+    
+}
 
 void Inventory::displayAll() const {
     if (isEmpty()) {
@@ -176,10 +188,30 @@ void Inventory::displayAll() const {
     }
     
     // Display header
-    std::cout << "\n_____________________________________________________________________________\n";
-    std::cout << "|                              |            |                 |\n";
-    std::cout << "|        NAME COMPONENT        |  QUANTITY  |    PRICE ($)    |\n";
-    std::cout << "|______________________________|____________|_________________|\n";
+    for(int i = 0; i<59; i++)
+		std::cout<<"_";
+	std::cout<<"\n";
+	std::cout<<"|";
+    print_space(30);
+    std::cout<<"|";
+    print_space(10);
+    std::cout<<"|";
+    print_space(15);
+    std::cout<<"|"<<std::endl;
+    std::cout<<"|  Name Component";
+    print_space(14);
+    std::cout<<"| ";
+    std::cout<<"Quantity ";
+    std::cout<<"|  Price ($)";
+    print_space(4);
+	std::cout<<"|"<<std::endl;
+    std::cout<<"|";
+    print_underScore(30);
+	std::cout<<"|";
+    print_underScore(10);
+	std::cout<<"|";
+    print_underScore(15);
+	std::cout<<"|"<<std::endl;
     
     Component* current = head;
     while (current != nullptr) {
@@ -188,29 +220,56 @@ void Inventory::displayAll() const {
         float price = current->getPrice();
         
         // Format the output to match your original table design
-        std::cout << "| " << name;
-        for (int i = name.length(); i < 28; i++) std::cout << " ";
-        
-        std::cout << "| " << qty;
-        if (qty < 10) std::cout << "         ";
-        else if (qty < 100) std::cout << "        ";
-        else if (qty < 1000) std::cout << "       ";
-        else if (qty < 10000) std::cout << "      ";
-        else std::cout << "     ";
-        
-        std::cout << "| $" << price;
-        printf("%8.2f", price);
-        if (price < 10) std::cout << "       ";
-        else if (price < 100) std::cout << "      ";
-        else if (price < 1000) std::cout << "     ";
-        else if (price < 10000) std::cout << "    ";
-        else std::cout << "   ";
-        std::cout << "|\n";
-        std::cout << "|______________________________|____________|_________________|\n";
-        
+		std::cout<<"|";
+        print_space(30);
+		std::cout<<"|";
+
+        print_space(10);
+		std::cout<<"|";
+        print_space(15);
+		std::cout<<"|\n";
+        std::cout<<"|  "<<name;
+        print_space(30-name.length()-2);
+		std::cout<<"| ";
+        std::cout<<qty;
+        if (qty < 10)
+            print_space(8);
+        else if (qty < 100)
+            print_space(7);
+        else if (qty < 1000)
+            print_space(6);
+        else if (qty < 10000)
+            print_space(5);
+        else
+            print_space(4);
+		std::cout<< std::fixed << std::setprecision(2) <<"| "<<price;
+  
+        if (price < 10)
+            print_space(9);
+        else if (price < 100)
+            print_space(8);
+        else if (price < 1000)
+            print_space(7);
+        else if (price < 10000)
+            print_space(6);
+        else if (price < 100000)
+            print_space(5);
+        else
+            print_space(4);
+		std::cout<<" |\n";
+		std::cout<<"|";
+        print_underScore(30);
+        printf("|");
+        print_underScore(10);
+		std::cout<<"|";
+        print_underScore(15);
+		std::cout<<"|\n";
+		
+		
         current = current->getNext();
     }
 }
+
 
 void Inventory::deleteComponent() {
     if (isEmpty()) {
