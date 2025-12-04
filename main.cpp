@@ -34,13 +34,13 @@ int getMenuOption() {
 }
 
 int main() {
-    // Authentication - will initialize credentials if first time
-    Authentication auth;
+    // // Authentication - will initialize credentials if first time
+    // Authentication auth;
     
-    // Now authenticate with the credentials (either newly created or loaded)
-    if (!auth.authenticate()) {
-        return 1;
-    }
+    // // Now authenticate with the credentials (either newly created or loaded)
+    // if (!auth.authenticate()) {
+    //     return 1;
+    // }
     
     Inventory inventory;
     Sales sales(&inventory);
